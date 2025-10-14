@@ -135,7 +135,7 @@ a:hover { text-decoration: underline; }
       <pre id="preview">(laster forhåndsvisning …)</pre>
 
       <div class="row" id="locked">
-        <button class="cta primary" id="payBtn">Lås opp – 29 kr</button>
+        <button class="cta primary" id="payBtn">Lås opp – 49 kr</button>
         <button class="cta ghost" id="backBtn">Tilbake</button>
         <span class="meta">Forhåndsvisning viser bare starten. Full versjon låses opp etter betaling. Vi lagrer ikke data.</span>
       </div>
@@ -151,7 +151,7 @@ a:hover { text-decoration: underline; }
       Ingen data funnet. index.htmlGå til forsiden</a> og skriv en råprompt.
     </div>
 
-    <div class="notice">Pris: 29 kr. Ingen lagring – alt slettes etter kopiering eller når du starter på nytt.</div>
+    <div class="notice">Pris: 49 kr. Ingen lagring – alt slettes etter kopiering eller når du starter på nytt.</div>
   </section>
 </main>
 
@@ -188,9 +188,9 @@ document.getElementById('backBtn')?.addEventListener('click', () => {
 document.getElementById('payBtn')?.addEventListener('click', async () => {
   // TODO: Integrer ekte betaling (Vipps/Stripe) her.
   // Eksempel (Stripe Checkout serverside):
-  // location.href = '/checkout?amount=2900&currency=NOK&ref=' + encodeURIComponent(createRef());
+  // location.href = '/checkout?amount=4900&currency=NOK&ref=' + encodeURIComponent(createRef());
   // Etter betaling → redirect til: result.html?paid=1
-  const ok = confirm("Simuler betaling på 29 kr og lås opp?");
+  const ok = confirm("Simuler betaling på 49 kr og lås opp?");
   if (!ok) return;
   unlock();
 });
@@ -235,3 +235,4 @@ function clearSession() {
 </body>
 
 </html>
+
