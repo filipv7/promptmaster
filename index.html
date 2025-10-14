@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Promptmaster.no – Optimaliser AI‑prompter</title>
+  <meta name="description" content="Skriv din råprompt (opptil 2000 tegn). Vi omskriver den til en presis og profesjonell prompt for best mulig resultat. Ingen lagring – alt slettes etter generering/kopiering." />
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(900px 600px at 15% -10%, rgba(124,92,255,.18), transparent 60%),
+                     radial-gradient(800px 500px at 110% 20%, rgba(61,220,151,.10), transparent 50%),
+                     linear-gradient(180deg,#0f0f1a,#0b0b12 60%, #0a0a11);
+      --glass-bg: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.14);
+      --accent: #7c5cff;
+      --accent-hover: #9a84ff;
+      --text: #f4f5fb;
+      --muted: #a7adc3;
+      --radius: 16px;
+      --shadow: 0 10px 36px rgba(0,0,0,0.45);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    header, main, footer { max-width: 900px; margin: auto; padding: 16px 20px; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+    .brand .name { font-weight: 700; font-size: 20px; letter-spacing: .2px; }
+    .logo { display:inline-flex; align-items:center; justify-content:center; height:40px; width:auto; }
+    .logo img { height: 40px; width: auto; object-fit: contain; display:block; }
+
+    .hero { margin: 28px 0 10px; text-align: center; }
+    .hero h1 { font-size: 32px; line-height: 1.2; margin: 0 0 10px; }
+    .hero p { color: var(--muted); max-width: 70ch; margin: 0 auto; }
+
+    .card {
+      margin-top: 24px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    label { font-size: 14px; color: var(--muted); }
+    textarea {
+      width: 100%; min-height: 180px; margin-top: 8px; resize: vertical;
+      padding: 12px; border-radius: 12px; outline: none;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+      color: var(--text); font-size: 15px;
+    }
+    textarea::placeholder { color: #8d93ac; }
+    textarea:focus { box-shadow: 0 0 0 3px rgba(124,92,255,.25); border-color: var(--accent); }
+
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .cta {
+      appearance: none; border: none; border-radius: 12px; padding: 10px 18px;
+      font-weight: 700; cursor: pointer; transition: .2s ease; color: #fff;
+      background: var(--accent);
+    }
+    .cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .cta:active { transform: translateY(0); }
+    .cta[disabled] { opacity: .5; cursor: not-allowed; } /* “Ø/forbudt” når deaktivert */
+
+    .meta { font-size: 13px; color: var(--muted); }
+
+    footer {
+      margin-top: auto; padding-top: 20px; text-align: center;
+      color: var(--muted); font-size: 13px;
+    }
+    a { color: #cdbbff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 520px) {
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    ./
+      <span class="logo"><img src="Designer.png    <span class="name">Promptmaster</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Optimaliser AI‑prompter – enkelt</h1>
+      <p>
+        Skriv og forklar din råprompt under (opptil 2000 tegn). Vi omskriver den til en presis og profesjonell prompt for best mulig resultat.
+        Vi lagrer ikke data – alt slettes etter generering/kopiering.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="inputlabel">
+      <label id="inputlabel" for="raw">Råprompt</label>
+      <textarea id="raw" maxlength="2000" placeholder="Beskriv oppgaven: mål, plattform (ChatGPT/Claude/Gemini), stil/tone, format, lengde, målgruppe, frister, begrensninger."></textarea>
+      <div class="row">
+        <button id="genBtn" class="cta" disabled>Generer prompt</button>
+        <span class="meta" id="counter">0 / 2000</span>
+      </div>
+      <div class="meta" style="margin-top:6px">Tips: Jo tydeligere mål og rammer, desto bedre blir prompten.</div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> Promptmaster.no • Ingen lagring av data •
+    <a href="#" onclick="alert('Kontakt:t>
+    <div style="max-width:900px;margin:10px auto;padding:10px 20px;color:#ffb3b3;">
+      JavaScript er deaktivert. Aktiver JavaScript for å generere og forhåndsvise prompten.
+    </div>
+  </noscript>
+
+  <script>
+    // Kjør alt først når DOM er lastet – unngår at elementer er null
+    document.addEventListener('DOMContentLoaded', function(){
+      var y = document.getElementById('y');
+      if (y) y.textContent = new Date().getFullYear();
+
+      // Logo: skjul kun bildet hvis det feiler (layout holder seg)
+      var logoImg = document.getElementById('logoImg');
+      if (logoImg) {
+        logoImg.addEventListener('error', function(){ this.style.display = 'none'; });
+        logoImg.addEventListener('load', function(){ this.style.maxWidth = '200px'; });
+      }
+
+      var raw = document.getElementById('raw');
+      var btn = document.getElementById('genBtn');
+      var counter = document.getElementById('counter');
+
+      function updateState(){
+        var len = (raw && raw.value ? raw.value.length : 0);
+        if (counter) counter.textContent = len + " / 2000";
+        if (btn) btn.disabled = (len === 0);
+      }
+
+      if (raw) {
+        raw.addEventListener('input', updateState);
+        raw.addEventListener('keyup', function(e){
+          // Ctrl/Cmd + Enter for rask generering
+          if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !btn.disabled) {
+            btn.click();
+          }
+        });
+      }
+
+      if (btn) {
+        btn.addEventListener('click', function(){
+          if (!raw) return;
+          var text = (raw.value || '').trim();
+          if (!text) return;
+
+          var full = generateOptimizedPrompt(text);
+          var preview = previewLines(full, 2);
+
+          // Kun sessionStorage – slettes senere
+          try {
+            sessionStorage.setItem('pm_full', full);
+            sessionStorage.setItem('pm_preview', preview);
+          } catch (e) {
+            alert("Nettleseren tillater ikke midlertidig lagring. Prøv en annen nettleser.");
+            return;
+          }
+          window.location.href = 'result.html';
+        });
+      }
+
+      // Init state ved sidestart (viktig hvis brukeren limer inn umiddelbart)
+      updateState();
+
+      function previewLines(str, lines){
+        lines = lines || 2;
+        var arr = (str || "").split('\n').filter(function(x){ return x.trim().length > 0; });
+        return arr.slice(0, lines).join('\n') + '\n…';
+      }
+
+      function generateOptimizedPrompt(rawText){
+        var now = new Date().toISOString().split('T')[0];
+        // Enkel, universell prompt (bytt til backend/LLM når du er klar)
+        return [
+          "SYSTEM:",
+          "Optimaliser denne råprompten til en profesjonell AI‑prompt.",
+          "",
+          "RÅPROMPT:",
+          rawText,
+          "",
+          "KRAV:",
+          "- Norsk bokmål",
+          "- Strukturert og presis",
+          "- Inkluder mål, målgruppe, tone/stil, format, lengde, rammer",
+          "",
+          "METADATA:",
+          "Dato: " + now
+        ].join("\n");
+      }
+    });
+  </script>
+</body>
+</html>

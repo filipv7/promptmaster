@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Promptmaster.no – Resultat</title>
+<meta name="description" content="Se forhåndsvisning av din optimaliserte prompt. Lås opp full versjon for 29 kr. Ingen lagring – alt slettes etter kopiering eller når du starter på nytt." />
+<style>
+:root {
+  --bg-gradient: radial-gradient(circle at 20% 20%, #1a1a2e, #0f0f1a);
+  --glass-bg: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.12);
+  --accent: #7c5cff;
+  --accent-light: #a78bfa;
+  --text: #f4f4f8;
+  --muted: #a0a0b8;
+  --radius: 16px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header, main, footer {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px 20px;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 20px;
+}
+.logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-top: 24px;
+}
+h2 {
+  margin: 6px 0 12px;
+  font-size: 22px;
+}
+pre {
+  margin: 0;
+  padding: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+}
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cta {
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+.cta.primary { background: var(--accent); color: #fff; }
+.cta.primary:hover { background: var(--accent-light); }
+.cta.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.meta { font-size: 13px; color: var(--muted); }
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: auto;
+  padding-top: 20px;
+}
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.notice {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.empty {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+<header>
+  ./
+    <span class="logo">Designer.png</span>
+    Promptmaster
+  </a>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Din optimaliserte prompt</h2>
+
+    <div id="contentArea">
+      <pre id="preview">(laster forhåndsvisning …)</pre>
+
+      <div class="row" id="locked">
+        <button class="cta primary" id="payBtn">Lås opp – 29 kr</button>
+        <button class="cta ghost" id="backBtn">Tilbake</button>
+        <span class="meta">Forhåndsvisning viser bare starten. Full versjon låses opp etter betaling. Vi lagrer ikke data.</span>
+      </div>
+
+      <div class="row" id="unlocked" style="display:none">
+        <button class="cta ghost" id="copyBtn">Kopier full prompt</button>
+        <button class="cta ghost" id="newBtn">Ny prompt</button>
+        <span class="meta">Data slettes etter kopiering eller når du starter på nytt.</span>
+      </div>
+    </div>
+
+    <div id="emptyState" class="empty" style="display:none">
+      Ingen data funnet. index.htmlGå til forsiden</a> og skriv en råprompt.
+    </div>
+
+    <div class="notice">Pris: 29 kr. Ingen lagring – alt slettes etter kopiering eller når du starter på nytt.</div>
+  </section>
+</main>
+
+<footer>
+  © <span id="y"></span> Promptmaster.no • #Vilkår</a>
+</footer>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+const full = sessionStorage.getItem('pm_full');
+const preview = sessionStorage.getItem('pm_preview');
+
+const previewEl = document.getElementById('preview');
+const lockedRow = document.getElementById('locked');
+const unlockedRow = document.getElementById('unlocked');
+const contentArea = document.getElementById('contentArea');
+const emptyState = document.getElementById('emptyState');
+
+if (!full) {
+  // Ingen data i sessionStorage → vis tomtilstand
+  contentArea.style.display = 'none';
+  emptyState.style.display = 'block';
+} else {
+  previewEl.textContent = preview || "(Forhåndsvisning utilgjengelig)";
+}
+
+// Knapper
+document.getElementById('backBtn')?.addEventListener('click', () => {
+  clearSession();
+  window.location.href = 'index.html';
+});
+
+document.getElementById('payBtn')?.addEventListener('click', async () => {
+  // TODO: Integrer ekte betaling (Vipps/Stripe) her.
+  // Eksempel (Stripe Checkout serverside):
+  // location.href = '/checkout?amount=2900&currency=NOK&ref=' + encodeURIComponent(createRef());
+  // Etter betaling → redirect til: result.html?paid=1
+  const ok = confirm("Simuler betaling på 29 kr og lås opp?");
+  if (!ok) return;
+  unlock();
+});
+
+document.getElementById('copyBtn')?.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(full || '');
+    alert("Full prompt kopiert. Data slettes nå.");
+  } catch {
+    alert("Klarte ikke å kopiere automatisk. Marker teksten og kopier manuelt.");
+  } finally {
+    clearSession();
+    window.location.href = 'index.html';
+  }
+});
+
+document.getElementById('newBtn')?.addEventListener('click', () => {
+  clearSession();
+  window.location.href = 'index.html';
+});
+
+// Støtt auto-opplåsing hvis redirect kommer tilbake med ?paid=1
+(function autoUnlockFromQuery(){
+  const params = new URLSearchParams(location.search);
+  if (params.get('paid') === '1' && full) {
+    unlock();
+  }
+})();
+
+function unlock() {
+  if (!full) return;
+  previewEl.textContent = full;
+  lockedRow.style.display = 'none';
+  unlockedRow.style.display = 'flex';
+}
+
+function clearSession() {
+  sessionStorage.removeItem('pm_full');
+  sessionStorage.removeItem('pm_preview');
+}
+</script>
+</body>
+</html>
