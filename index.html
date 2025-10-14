@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="no">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Promptmaster.no – Optimaliser AI‑prompter</title>
-  <meta name="description" content="Skriv din råprompt (opptil 2000 tegn). Vi omskriver den til en presis og profesjonell prompt for best mulig resultat. Ingen lagring – alt slettes etter generering/kopiering." />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Promptmaster.no – Optimaliser AI‑prompter</title>
+<meta content="Skriv din råprompt (opptil 2000 tegn). Vi omskriver den til en presis og profesjonell prompt for best mulig resultat. Ingen lagring – alt slettes etter generering/kopiering." name="description"/>
+<style>
     :root {
       --bg-gradient: radial-gradient(900px 600px at 15% -10%, rgba(124,92,255,.18), transparent 60%),
                      radial-gradient(800px 500px at 110% 20%, rgba(61,220,151,.10), transparent 50%),
@@ -88,42 +89,38 @@
     }
   </style>
 </head>
-<body>
-  <header>
+<body><img alt="Prompt Master Logo" src="Designer.png" style="max-width: 200px; height: auto; display: block; margin: 20px auto;"/>
+<header>
     ./
-      <span class="logo"><img src="Designer.png    <span class="name">Promptmaster</span>
-    </a>
-  </header>
+      <span class="logo"><img name"="" src="Designer.png    &lt;span class="/>Promptmaster</span>
 
-  <main>
-    <section class="hero">
-      <h1>Optimaliser AI‑prompter – enkelt</h1>
-      <p>
+</header>
+<main>
+<section class="hero">
+<h1>Optimaliser AI‑prompter – enkelt</h1>
+<p>
         Skriv og forklar din råprompt under (opptil 2000 tegn). Vi omskriver den til en presis og profesjonell prompt for best mulig resultat.
         Vi lagrer ikke data – alt slettes etter generering/kopiering.
       </p>
-    </section>
-
-    <section class="card" aria-labelledby="inputlabel">
-      <label id="inputlabel" for="raw">Råprompt</label>
-      <textarea id="raw" maxlength="2000" placeholder="Beskriv oppgaven: mål, plattform (ChatGPT/Claude/Gemini), stil/tone, format, lengde, målgruppe, frister, begrensninger."></textarea>
-      <div class="row">
-        <button id="genBtn" class="cta" disabled>Generer prompt</button>
-        <span class="meta" id="counter">0 / 2000</span>
-      </div>
-      <div class="meta" style="margin-top:6px">Tips: Jo tydeligere mål og rammer, desto bedre blir prompten.</div>
-    </section>
-  </main>
-
-  <footer>
+</section>
+<section aria-labelledby="inputlabel" class="card">
+<label for="raw" id="inputlabel">Råprompt</label>
+<textarea id="raw" maxlength="2000" placeholder="Beskriv oppgaven: mål, plattform (ChatGPT/Claude/Gemini), stil/tone, format, lengde, målgruppe, frister, begrensninger."></textarea>
+<div class="row">
+<button class="cta" disabled="" id="genBtn">Generer prompt</button>
+<span class="meta" id="counter">0 / 2000</span>
+</div>
+<div class="meta" style="margin-top:6px">Tips: Jo tydeligere mål og rammer, desto bedre blir prompten.</div>
+</section>
+</main>
+<footer>
     © <span id="y"></span> Promptmaster.no • Ingen lagring av data •
-    <a href="#" onclick="alert('Kontakt:t>
-    <div style="max-width:900px;margin:10px auto;padding:10px 20px;color:#ffb3b3;">
+    <a 20px;color:#ffb3b3;"="" auto;padding:10px="" href="#" max-width:900px;margin:10px="" onclick="alert('Kontakt:t&gt;
+    &lt;div style=">
       JavaScript er deaktivert. Aktiver JavaScript for å generere og forhåndsvise prompten.
-    </div>
-  </noscript>
+    
 
-  <script>
+<script>
     // Kjør alt først når DOM er lastet – unngår at elementer er null
     document.addEventListener('DOMContentLoaded', function(){
       var y = document.getElementById('y');
@@ -207,5 +204,5 @@
       }
     });
   </script>
-</body>
+</a></footer></body>
 </html>
