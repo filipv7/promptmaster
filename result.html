@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="no">
 <head>
@@ -35,19 +36,10 @@ header, main, footer {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 700;
-  font-size: 20px;
+  justify-content: flex-start;
 }
 .logo img {
-  height: 40px;
+  height: 64px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -121,9 +113,8 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <header>
-  ./
-    <span class="logo">Designer.png</span>
-    Promptmaster
+  <a href="index.html" class="logo">
+    <img src="./Designer.png" alt="Promptmaster logo" />
   </a>
 </header>
 
@@ -148,7 +139,7 @@ a:hover { text-decoration: underline; }
     </div>
 
     <div id="emptyState" class="empty" style="display:none">
-      Ingen data funnet. index.htmlGå til forsiden</a> og skriv en råprompt.
+      Ingen data funnet. <a href="index.html">Gå til forsiden</a> og skriv en råprompt.
     </div>
 
     <div class="notice">Pris: 49 kr. Ingen lagring – alt slettes etter kopiering eller når du starter på nytt.</div>
@@ -156,7 +147,7 @@ a:hover { text-decoration: underline; }
 </main>
 
 <footer>
-  © <span id="y"></span> Promptmaster.no • #Vilkår</a>
+  © <span id="y"></span> Promptmaster.no • <a href="#">Vilkår</a>
 </footer>
 
 <script>
@@ -172,24 +163,18 @@ const contentArea = document.getElementById('contentArea');
 const emptyState = document.getElementById('emptyState');
 
 if (!full) {
-  // Ingen data i sessionStorage → vis tomtilstand
   contentArea.style.display = 'none';
   emptyState.style.display = 'block';
 } else {
   previewEl.textContent = preview || "(Forhåndsvisning utilgjengelig)";
 }
 
-// Knapper
 document.getElementById('backBtn')?.addEventListener('click', () => {
   clearSession();
   window.location.href = 'index.html';
 });
 
 document.getElementById('payBtn')?.addEventListener('click', async () => {
-  // TODO: Integrer ekte betaling (Vipps/Stripe) her.
-  // Eksempel (Stripe Checkout serverside):
-  // location.href = '/checkout?amount=4900&currency=NOK&ref=' + encodeURIComponent(createRef());
-  // Etter betaling → redirect til: result.html?paid=1
   const ok = confirm("Simuler betaling på 49 kr og lås opp?");
   if (!ok) return;
   unlock();
@@ -212,7 +197,6 @@ document.getElementById('newBtn')?.addEventListener('click', () => {
   window.location.href = 'index.html';
 });
 
-// Støtt auto-opplåsing hvis redirect kommer tilbake med ?paid=1
 (function autoUnlockFromQuery(){
   const params = new URLSearchParams(location.search);
   if (params.get('paid') === '1' && full) {
@@ -233,6 +217,4 @@ function clearSession() {
 }
 </script>
 </body>
-
 </html>
-
